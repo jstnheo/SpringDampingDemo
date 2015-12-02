@@ -9,17 +9,75 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var headerContainer: UIView!
+
+    @IBOutlet weak var durationSlider: UISlider!
+    @IBOutlet weak var springDampingSlider: UISlider!
+    @IBOutlet weak var velocitySlider: UISlider!
+
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var springDampingLabel: UILabel!
+    @IBOutlet weak var velocityLabel: UILabel!
+
+    @IBOutlet weak var animatingOptions: UISegmentedControl!
+
+    @IBOutlet weak var animatingTableView: UITableView!
+
+    var defaultValue: CGPoint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        defaultValue = animatingTableView.frame.origin
+        setupSliders()
+
+        presentTableView()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func updateLabels() {
+        durationLabel.text = String(format: "%.1f", durationSlider.value)
+        springDampingLabel.text = String(format: "%.1f", springDampingSlider.value)
+        velocityLabel.text = String(format: "%.1f", velocitySlider.value)
     }
 
+    private func moveOffScreen() {
+        animatingTableView.frame.origin = CGPointMake(animatingTableView.frame.origin.x,
+            animatingTableView.frame.origin.y + UIScreen.mainScreen().bounds.size.height)
+    }
 
+    func setupSliders() {
+        durationSlider.addTarget(self, action: "updateLabels", forControlEvents: .ValueChanged)
+        springDampingSlider.addTarget(self, action: "updateLabels", forControlEvents: .ValueChanged)
+        velocitySlider.addTarget(self, action: "updateLabels", forControlEvents: .ValueChanged)
+    }
+    @IBAction func restartAnimation(sender: AnyObject) {
+        presentTableView()
+    }
+
+    func presentTableView() {
+        let duration = durationSlider.value
+        let springDamping = CGFloat(springDampingSlider.value)
+        let velocity = CGFloat(velocitySlider.value)
+
+        var option: UIViewAnimationOptions?
+
+        switch animatingOptions {
+        case 1:
+            option = .CurveEaseIn
+        case 2:
+            option = .CurveEaseOut
+        case 3:
+            option = .CurveEaseInOut
+        case _:
+            option = .CurveLinear
+        }
+
+        moveOffScreen()
+        
+        UIView.animateWithDuration(NSTimeInterval(duration), delay: 0,
+            usingSpringWithDamping: springDamping,
+            initialSpringVelocity: velocity, options: option!, animations: {
+                self.animatingTableView.frame.origin = self.defaultValue
+            }, completion: nil)
+    }
 }
-
