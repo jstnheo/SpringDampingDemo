@@ -133,7 +133,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="coH-wo-NTE"/>
                                 </constraints>
-                                <state key="normal" title="Again"/>
+                                <state key="normal" title="Animate"/>
                                 <connections>
                                     <action selector="restartAnimation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kgR-1p-Kv2"/>
                                 </connections>
@@ -141,11 +141,15 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zDI-nE-h7M">
                                 <rect key="frame" x="0.0" y="200" width="600" height="350"/>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="buw-SL-Ck8"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="o96-NU-4DE"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="GlO-Mq-jBr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="BAG-FI-G5D"/>
                             <constraint firstAttribute="trailing" secondItem="zDI-nE-h7M" secondAttribute="trailing" id="RfY-wd-aYf"/>

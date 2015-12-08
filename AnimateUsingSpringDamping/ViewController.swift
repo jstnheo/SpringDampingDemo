@@ -81,3 +81,15 @@ class ViewController: UIViewController {
             }, completion: nil)
     }
 }
+
+extension ViewController: UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "None")
+        cell.textLabel?.text = "Hello"
+        return cell
+    }
+}
