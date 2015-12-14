@@ -133,7 +133,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="coH-wo-NTE"/>
                                 </constraints>
-                                <state key="normal" title="Animate"/>
+                                <state key="normal" title=" Animate Again"/>
                                 <connections>
                                     <action selector="restartAnimation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kgR-1p-Kv2"/>
                                 </connections>
