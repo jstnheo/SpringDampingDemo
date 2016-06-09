@@ -46,9 +46,9 @@ class ViewController: UIViewController {
     }
 
     func setupSliders() {
-        durationSlider.addTarget(self, action: "updateLabels", forControlEvents: .ValueChanged)
-        springDampingSlider.addTarget(self, action: "updateLabels", forControlEvents: .ValueChanged)
-        velocitySlider.addTarget(self, action: "updateLabels", forControlEvents: .ValueChanged)
+        durationSlider.addTarget(self, action: #selector(ViewController.updateLabels), forControlEvents: .ValueChanged)
+        springDampingSlider.addTarget(self, action: #selector(ViewController.updateLabels), forControlEvents: .ValueChanged)
+        velocitySlider.addTarget(self, action: #selector(ViewController.updateLabels), forControlEvents: .ValueChanged)
     }
     @IBAction func restartAnimation(sender: AnyObject) {
         presentTableView()
