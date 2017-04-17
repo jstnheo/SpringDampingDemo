@@ -40,17 +40,17 @@ class ViewController: UIViewController {
         velocityLabel.text = String(format: "%.1f", velocitySlider.value)
     }
 
-    private func moveOffScreen() {
-        animatingTableView.frame.origin = CGPointMake(animatingTableView.frame.origin.x,
-            animatingTableView.frame.origin.y + UIScreen.mainScreen().bounds.size.height)
+    fileprivate func moveOffScreen() {
+        animatingTableView.frame.origin = CGPoint(x: animatingTableView.frame.origin.x,
+            y: animatingTableView.frame.origin.y + UIScreen.main.bounds.size.height)
     }
 
     func setupSliders() {
-        durationSlider.addTarget(self, action: #selector(ViewController.updateLabels), forControlEvents: .ValueChanged)
-        springDampingSlider.addTarget(self, action: #selector(ViewController.updateLabels), forControlEvents: .ValueChanged)
-        velocitySlider.addTarget(self, action: #selector(ViewController.updateLabels), forControlEvents: .ValueChanged)
+        durationSlider.addTarget(self, action: #selector(ViewController.updateLabels), for: .valueChanged)
+        springDampingSlider.addTarget(self, action: #selector(ViewController.updateLabels), for: .valueChanged)
+        velocitySlider.addTarget(self, action: #selector(ViewController.updateLabels), for: .valueChanged)
     }
-    @IBAction func restartAnimation(sender: AnyObject) {
+    @IBAction func restartAnimation(_ sender: AnyObject) {
         presentTableView()
     }
 
@@ -61,20 +61,20 @@ class ViewController: UIViewController {
 
         var option: UIViewAnimationOptions?
 
-        switch animatingOptions {
+        switch animatingOptions.selectedSegmentIndex {
         case 1:
-            option = .CurveEaseIn
+            option = .curveEaseIn
         case 2:
-            option = .CurveEaseOut
+            option = .curveEaseOut
         case 3:
-            option = .CurveEaseInOut
+            option = UIViewAnimationOptions()
         case _:
-            option = .CurveLinear
+            option = .curveLinear
         }
 
         moveOffScreen()
         
-        UIView.animateWithDuration(NSTimeInterval(duration), delay: 0,
+        UIView.animate(withDuration: TimeInterval(duration), delay: 0,
             usingSpringWithDamping: springDamping,
             initialSpringVelocity: velocity, options: option!, animations: {
                 self.animatingTableView.frame.origin = self.defaultValue
@@ -83,12 +83,12 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "None")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "None")
         cell.textLabel?.text = "Hello"
         return cell
     }
